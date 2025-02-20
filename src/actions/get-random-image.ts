@@ -13,9 +13,9 @@ type RetunImageProps = RandomImage & {
 
 export const getRandomImage = async () => {
   const image = await getImage();
-  const isExpired = new Date() >= (image?.expiredAt ?? new Date());
+  const isExpired = new Date() > (image?.expiredAt ?? new Date());
 
-  if (!image || isExpired) {
+  if (isExpired || !image) {
     const image = await saveImage();
     return image;
   }
